@@ -1,0 +1,4 @@
+POST http://localhost:8080/extensions/gc2_demo_extension/controller/demo/mydb
+Content-Type: application/json
+
+{"num": 1}
