@@ -35,7 +35,7 @@ class Demo extends Controller
         Database::setDb(Route::getParam("db"));
         $body = Input::getBody();
         $m = new ModelDemo();
-        // Try for TypeError, because it's user input and check for PDOException
+        // Try for TypeError, because it's user input and try for PDOException in case of SQL error
         try {
             $res = $m->getNumber(json_decode($body, true)["num"]);
         } catch (TypeError | PDOException $err) {
@@ -58,7 +58,6 @@ class Demo extends Controller
             ];
 
         } catch (Exception $generalException) {
-            // A general exception is thown if the API
             return [
                 "code" => "500",
                 "success" => false,
@@ -66,12 +65,11 @@ class Demo extends Controller
             ];
         }
 
-
         // Everything is OK - sending 200 with result
         return [
             "code" => "200",
             "success" => true,
-            "number" => $res["data"],
+            "number" => $res,
         ];
     }
 }

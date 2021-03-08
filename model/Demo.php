@@ -25,18 +25,14 @@ class Demo extends Model
 
     /**
      * @param int $n
-     * @return array<bool|string>
-     * @throws PDOException
+     * @return int
      */
-    public function getNumber(int $n): array
+    public function getNumber(int $n): int
     {
         $sql = "SELECT :n::int AS num";
         $res = $this->prepare($sql);
         $res->execute(["n" => $n]);
         $row = $this->fetchRow($res);
-        return [
-            "success" => true,
-            "data" => $row["num"]
-        ];
+        return $row["num"];
     }
 }
